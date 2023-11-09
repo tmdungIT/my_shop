@@ -30,6 +30,9 @@
 a {
     text-decoration: none;
 }
+.hid {
+    display: none;
+}
 
 .left_laptop_small {
     position: relative;
@@ -57,6 +60,9 @@ a {
     display: flex;
     align-items: center;
     padding: 20px;
+}
+.group.clicked {
+   color: red;
 }
 
 .group p {

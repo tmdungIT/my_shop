@@ -1,49 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./HomeAdmin.css";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Dashboard from "../Dashboard/Dashboard"
 import Categories from "../Categories/Categories"
 import Products from "../Products/Products"
-import Order from "../Order/Order"
+import Orders from "../Orders/Orders"
 import Users from "../Users/Users"
 import NavbarAdmin from '../NavbarAdmin/NavbarAdmin';
+import dataArray1 from '../data/DataAdmin';
 
 
 function HomeAdmin(props) {
-    return (
-        <BrowserRouter>
-            <div className='container-fluid admin' >
-                <div className='admin_left'>
-                    <div className='left_laptop'>
-                        <h1> ADMIN</h1>
-                        <div className="icon">
-                            <i class="fa-solid fa-minus"></i>
-                        </div>
-                        <hr />
-                        <Link className="group" as={Link} to="/" >
-                            <i class="fa-regular fa-clock"></i>
-                            <p> Dashboard</p>
-                        </Link>
-                        <Link className="group" as={Link} to="/categories">
-                            <i class="fa-regular fa-clock"></i>
-                            <p> Categories</p>
-                        </Link>
-                        <Link className="group" as={Link} to="/products">
-                            <i class="fa-regular fa-clock"></i>
-                            <p> Products</p>
-                        </Link>
-                        <Link className="group" as={Link} to="/order">
-                            <i class="fa-regular fa-clock"></i>
-                            <p> Orders</p>
-                        </Link>
-                        <Link className="group" as={Link} to="/users">
-                            <i class="fa-regular fa-clock"></i>
-                            <p> Users</p>
-                        </Link>
+   const [hidden, setHidden] = useState(false);
+   const [clickedLinkID, setclickedLinkID] = useState(null);
 
-                    </div>
+   return (
+      <BrowserRouter>
+         <div className='container-fluid admin' >
+            <div className='admin_left'>
+               <div className='left_laptop'>
+                  <h1 className={hidden ? '' : 'hid'}> Suff ADMIN</h1>
+                  <h1 className={hidden ? 'hid' : ''}> S</h1>
 
-                    {/* <div className='left_laptop_small'>
+                  <div className="icon" onClick={() => setHidden(!hidden)}>
+                     <i class={`fa-solid fa-minus ${hidden ? '' : 'hid'}`}></i>
+                     <i class={`fa-solid fa-plus ${hidden ? 'hid' : ''}`}></i>
+                  </div>
+                  <hr />
+                  {dataArray1.map(item => (
+                     <Link key={item.id}
+                        className={`group ${clickedLinkID=== item.id ? 'clicked' : ''}`}
+                        as={Link}
+                        to={item.link}
+                        onClick={() => setclickedLinkID(item.id)}
+                     >
+                        <i className={item.icon}></i>
+                        <p className={hidden ? '' : 'hid'}>{item.name}</p>
+                     </Link>
+                     // <Link className="group" as={Link} to="/categories">
+                     //     <i class="fa-regular fa-clock"></i>
+                     //     <p className={hidden ? '' : 'hid'}> Categories</p>
+                     // </Link>
+                     // <Link className="group" as={Link} to="/products">
+                     //     <i class="fa-regular fa-clock"></i>
+                     //     <p className={hidden ? '' : 'hid'}> Products</p>
+                     // </Link>
+                     // <Link className="group" as={Link} to="/order">
+                     //     <i class="fa-regular fa-clock"></i>
+                     //     <p className={hidden ? '' : 'hid'}> Orders</p>
+                     // </Link>
+                     // <Link className="group" as={Link} to="/users">
+                     //     <i class="fa-regular fa-clock"></i>
+                     //     <p className={hidden ? '' : 'hid'}> Users</p>
+                     // </Link>
+                  ))}
+               </div>
+
+               {/* <div className='left_laptop_small'>
                         <h1> S</h1>
                         <div className="icon">
                             <i class="fa-solid fa-plus"></i>
@@ -51,7 +64,9 @@ function HomeAdmin(props) {
                         <hr />
                         <div className="group">
                             <i class="fa-regular fa-clock"></i>
-
+                        </div>
+                        <div className="group">
+                            <i class="fa-regular fa-clock"></i>
                         </div>
                         <div className="group">
                             <i class="fa-regular fa-clock"></i>
@@ -59,21 +74,13 @@ function HomeAdmin(props) {
                         </div>
                         <div className="group">
                             <i class="fa-regular fa-clock"></i>
-
                         </div>
                         <div className="group">
                             <i class="fa-regular fa-clock"></i>
-
                         </div>
                         <div className="group">
                             <i class="fa-regular fa-clock"></i>
-
                         </div>
-                        <div className="group">
-                            <i class="fa-regular fa-clock"></i>
-
-                        </div>
-
                     </div>
                     <div className="left_laptop_mobi">
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -113,22 +120,22 @@ function HomeAdmin(props) {
                             </div>
                         </nav>
                     </div> */}
-                </div>
-
-                <div className='admin_right'>
-                    <NavbarAdmin/>
-                    <Routes>
-                        <Route exact path="/" element={<Dashboard />} />
-                        <Route exact path="/order" element={<Order />} />
-                        <Route exact path="/categories" element={<Categories />} />
-                        <Route exact path="/products" element={<Products />} />
-                        <Route exact path="/users" element={<Users />} />
-
-                    </Routes>
-                </div>
             </div>
-        </BrowserRouter>
-    );
+
+            <div className='admin_right'>
+               <NavbarAdmin />
+               <Routes>
+                  <Route exact path="/" element={<Dashboard />} />
+                  <Route exact path="/orders" element={<Orders />} />
+                  <Route exact path="/categories" element={<Categories />} />
+                  <Route exact path="/products" element={<Products />} />
+                  <Route exact path="/users" element={<Users />} />
+
+               </Routes>
+            </div>
+         </div>
+      </BrowserRouter>
+   );
 }
 
 export default HomeAdmin;
